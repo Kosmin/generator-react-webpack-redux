@@ -1,16 +1,21 @@
-const redux = require('redux');
-const reducers = require('../reducers');
+import { createStore } from 'redux';
+import reducers from '../reducers';
 
-module.exports = function(initialState) {
-  const store = redux.createStore(reducers, initialState)
+function reduxStore(initialState) {
+  const store = createStore(reducers, initialState,
+    window.devToolsExtension && window.devToolsExtension());
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
     module.hot.accept('../reducers', () => {
-      const nextReducer = require('../reducers')
-      store.replaceReducer(nextReducer)
-    })
+      // We need to require for hot reloading to work properly.
+      const nextReducer = require('../reducers');  // eslint-disable-line global-require
+
+      store.replaceReducer(nextReducer);
+    });
   }
 
-  return store
+  return store;
 }
+
+export default reduxStore;

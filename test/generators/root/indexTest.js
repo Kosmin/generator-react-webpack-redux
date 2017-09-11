@@ -1,11 +1,9 @@
-'use strict';
-let path = require('path');
-let assert = require('yeoman-assert');
-let helpers = require('yeoman-test');
+const path = require('path');
+const assert = require('yeoman-assert'); // eslint-disable-line
+const helpers = require('yeoman-test'); // eslint-disable-line
 
 describe('react-webpack-redux:root', () => {
-
-  let generatorDispatcher = path.join(__dirname, '../../../generators/root');
+  const generatorDispatcher = path.join(__dirname, '../../../generators/root');
 
   /**
    * Return a newly generated dispatcher with given name
@@ -18,16 +16,16 @@ describe('react-webpack-redux:root', () => {
       .on('end', callback);
   }
 
-  it('should create the root reducer, redux store, base container and custom index.js', (done) => {
-
+  it('should create the root reducer, redux store, base container and custom client.js', (done) => {
     createGeneratedDispatcher('Dispatcher', () => {
-
       assert.file([
-        'src/index.js',
+        '.eslintrc',
+        'src/client.js',
         'src/stores/index.js',
         'src/reducers/index.js',
         'src/containers/App.js',
-        'src/actions/const.js'
+        'src/actions/const.js',
+        'src/actions/index.js'
       ]);
 
       done();

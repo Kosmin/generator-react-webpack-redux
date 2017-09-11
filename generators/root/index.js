@@ -1,14 +1,9 @@
 'use strict';
-let generator = require('yeoman-generator');
+const Generator = require('yeoman-generator');
+const fs = require('fs');
 
-module.exports = generator.Base.extend({
-
-  constructor: function() {
-    generator.Base.apply(this, arguments);
-    this.argument('name', { type: String, required: true });
-  },
-
-  writing: function() {
+class RootGenerator extends Generator {
+  writing() {
     /* Some base functionality needs to be overwritten, so we force yeoman to do
      * so. This is not the nicest thing to do, but since this changes are needed
      * it does not make sense to give the user a choice.
@@ -29,14 +24,20 @@ module.exports = generator.Base.extend({
 
     // Copy the actions const template
     this.fs.copy(
-      this.templatePath('const.js'),
+      this.templatePath('./action/const.js'),
       this.destinationPath('src/actions/const.js')
+    );
+
+    // Copy the actions export template
+    this.fs.copy(
+      this.templatePath('./action/index.js'),
+      this.destinationPath('src/actions/index.js')
     );
 
     // Copy the entry point over the original entry point
     this.fs.copy(
-      this.templatePath('index.js'),
-      this.destinationPath('src/index.js')
+      this.templatePath('client.js'),
+      this.destinationPath('src/client.js')
     );
 
     // Copy the app container
@@ -44,5 +45,13 @@ module.exports = generator.Base.extend({
       this.templatePath('App.js'),
       this.destinationPath('src/containers/App.js')
     );
+
+    // Copy the adapted eslintrc
+    this.fs.copy(
+      this.templatePath('eslintrc'),
+      this.destinationPath('.eslintrc')
+    );
   }
-});
+};
+
+module.exports = RootGenerator;

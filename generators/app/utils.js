@@ -2,11 +2,6 @@
 const fs = require('fs');
 const path = require('path');
 
-/* For regular JS files */
-//const esprima = require('esprima');
-//const escodegen = require('escodegen');
-
-/* For files with JSX syntax */
 const esprimaFb = require('esprima-fb');
 const escodegenJsx = require('escodegen-wallaby');
 
@@ -24,7 +19,14 @@ const read = function(path) {
 
 const write = function(path, tree) {
   tree = escodegenJsx.attachComments(tree, tree.comments, tree.tokens);
-  const options = { comment: true, format: { indent: { style: '  ' } } };
+  const options = {
+    comment: true,
+    format: {
+      indent: { style: '  ' },
+      compact: false
+    }
+  };
+
   const code = escodegenJsx.generate(tree, options) + '\n';
   fs.writeFileSync(path, code, 'utf8');
 };

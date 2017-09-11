@@ -1,8 +1,8 @@
 'use strict';
-let path = require('path');
-let assert = require('yeoman-assert');
-let helpers = require('yeoman-test');
-let fs = require('fs-extra');
+const path = require('path');
+const assert = require('yeoman-assert');  // eslint-disable-line
+const helpers = require('yeoman-test');  // eslint-disable-line
+const fs = require('fs-extra');  // eslint-disable-line
 
 describe('react-webpack-redux:reducer', () => {
 
@@ -21,7 +21,7 @@ describe('react-webpack-redux:reducer', () => {
      */
     function createGeneratedReducer(name, callback) {
       helpers.run(generatorReducer)
-        .inTmpDir(function(tmpDir) {
+        .inTmpDir((tmpDir) => {
           rootReducerPath = path.join(tmpDir, 'src/reducers/index.js');
           fs.copySync(reducerSource, rootReducerPath);
 
@@ -58,7 +58,9 @@ describe('react-webpack-redux:reducer', () => {
 
       createGeneratedReducer('namespaced/test', () => {
         assert.fileContent(rootReducerPath, '/* Populated by react-webpack-redux:reducer */');
-        assert.fileContent(rootReducerPath, '{ test: require(\'../reducers/namespaced/test.js\')');
+        assert.fileContent(rootReducerPath, 'import test from \'../reducers/namespaced/test.js\';');
+        assert.fileContent(rootReducerPath, 'const reducers = { test };');
+
         done();
       });
     });
@@ -68,9 +70,9 @@ describe('react-webpack-redux:reducer', () => {
       createGeneratedReducer('test', () => {
         assert.fileContent(appPath, '/* Populated by react-webpack-redux:reducer */');
         assert.fileContent(appPath, 'test: state.test');
-        assert.fileContent(appPath, 'test: PropTypes.object.isRequired');
         assert.fileContent(appPath, 'const {actions, test} = this.props;');
         assert.fileContent(appPath, '<Main actions={actions} test={test}/>');
+        assert.fileContent(appPath, 'test: PropTypes.shape({})');
         done();
       });
     });

@@ -10,12 +10,13 @@ import React, {
 } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Main from '../components/Main';
+import {} from '../actions/';
+import Main from '../components/App';
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {
-    const {actions} = this.props;
-    return <Main actions={actions}/>;
+    const { actions } = this.props;
+    return <Main actions={actions} />;
   }
 }
 /* Populated by react-webpack-redux:reducer
@@ -24,9 +25,9 @@ class App extends Component {
  *       adjust it here.
  */
 App.propTypes = {
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.shape({})
 };
-function mapStateToProps(state) {
+function mapStateToProps(state) { // eslint-disable-line no-unused-vars
   /* Populated by react-webpack-redux:reducer */
   const props = {};
   return props;

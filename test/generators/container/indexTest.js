@@ -1,7 +1,6 @@
-'use strict';
-let path = require('path');
-let assert = require('yeoman-assert');
-let helpers = require('yeoman-test');
+const path = require('path');
+const assert = require('yeoman-assert'); // eslint-disable-line
+const helpers = require('yeoman-test'); // eslint-disable-line
 
 describe('react-webpack-redux:container', () => {
   const generatorContainer = path.join(__dirname, '../../../generators/container');
@@ -18,7 +17,7 @@ describe('react-webpack-redux:container', () => {
       .on('end', callback);
   }
 
-  describe('When creating a new action', () => {
+  describe('When creating a new container', () => {
 
     it('should create the container file', (done) => {
       createGeneratedContainer('TestContainer', () => {
@@ -36,7 +35,8 @@ describe('react-webpack-redux:container', () => {
 
     it('should have the proper prefix', (done) => {
       createGeneratedContainer('TestContainer', () => {
-        assert.fileContent('src/containers/TestContainer.js', '../components/Main');
+        assert.fileContent('src/containers/TestContainer.js', '../actions');
+        assert.fileContent('src/containers/TestContainer.js', '../components/App');
         done();
       });
     });
@@ -81,7 +81,8 @@ describe('react-webpack-redux:container', () => {
 
     it('should have the proper prefix', (done) => {
       createGeneratedContainer('name/space/TestContainer', () => {
-        assert.fileContent('src/containers/name/space/TestContainer.js', '../../../components/Main');
+        assert.fileContent('src/containers/name/space/TestContainer.js', '../../../actions');
+        assert.fileContent('src/containers/name/space/TestContainer.js', '../../../components/App');
         done();
       });
     });

@@ -3,18 +3,20 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
+import {} from '../actions/const';
+
 const initialState = {};
 
-module.exports = function(state = initialState, action) {
+function reducer(state = initialState, action) {
   /* Keep the reducer clean - do not mutate the original state. */
-  //let nextState = Object.assign({}, state);
+  // const nextState = Object.assign({}, state);
 
-  switch(action.type) {
+  switch (action.type) {
     /*
-    case 'YOUR_ACTION': {
+    case YOUR_ACTION: {
       // Modify next state depending on the action and return it
       return nextState;
-    } break;
+    }
     */
     default: {
       /* Return original state if no actions were consumed. */
@@ -22,3 +24,5 @@ module.exports = function(state = initialState, action) {
     }
   }
 }
+
+module.exports = reducer;
